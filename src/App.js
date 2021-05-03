@@ -1,7 +1,7 @@
 <<<<<<< Updated upstream
 import React, { useEffect } from "react";
 import logo from './logo.svg';
-import './App.css';
+import 'src/App.scss';
 import {
   firestore
 } from "./firebase/firebase.js";
