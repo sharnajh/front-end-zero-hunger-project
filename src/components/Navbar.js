@@ -6,16 +6,14 @@ import {
   NavMenu,
   NavBtn,
   NavBtnLink
-} from './NavbarElements';
+} from './NavbarComponents.js';
 
-const Navbar = () => {
+ const Navbar = () => {
   return (
-    <>
       <Nav>
-        <NavLink to='/'>
-          <img src={require('../../images/logo.svg')} alt='logo' />
-        </NavLink>
+
         <Bars />
+  
         <NavMenu>
           <NavLink to='/about' activeStyle>
             About
@@ -30,8 +28,7 @@ const Navbar = () => {
           <NavBtnLink to='/signin'>Sign In</NavBtnLink>
         </NavBtn>
       </Nav>
-    </>
   );
 };
-
+  
 export default Navbar;
