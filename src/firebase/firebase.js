@@ -34,6 +34,19 @@ const config = {
     appId: "1:735842228109:web:e7073e39325a12b6848fc4"
 };
 
+export const convertMarketLocationsSnapshotToMap = (collectionsSnapshot) => {
+    const transformedCollection = collectionsSnapshot.docs.map(doc => {
+      const {name, position } = doc.data();
+      return {
+        routeName: encodeURI(name.toLowerCase()),
+        id: doc.id,
+        name,
+        position
+      }
+    });
+    return transformedCollection;
+  }
+
 firebase.initializeApp(config);
 
 export const firestore = firebase.firestore();
