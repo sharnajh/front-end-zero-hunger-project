@@ -6,42 +6,29 @@ import Home from './Pages/home.js';
 import About from './Pages/about.js';
 import Services from './Pages/services.js';
 import Navbar from './components/Navbar.js'
-
+import MapComponent from './components/GoogleMaps/MapComponent.js';
 
 import {
-  firestore
+  firestore,
+  convertMarketLocationsSnapshotToMap
 } from "./firebase/firebase.js";
 
 const App = () => {
-  const convertCollectionsSnapshotToMap = (collectionsSnapshot) => {
-    const transformedCollection = collectionsSnapshot.docs.map(doc => {
-      const {name, price } = doc.data();
-      return {
-        routeName: encodeURI(name.toLowerCase()),
-        id: doc.id,
-        name,
-        price
-      }
-    });
-    return transformedCollection.reduce((accumulator, collection) => {
-      accumulator[collection.name.toLowerCase()] = collection;
-      return accumulator;
-    }, {});
-  }
+  const [locations, setLocations] = React.useState(null);
   useEffect(() => {
-    const collectionRef = firestore.collection("products");
+    const collectionRef = firestore.collection("market-locations");
     collectionRef
       .get()
       .then((snapshot) => {
-        const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-        console.log(collectionsMap);
+        const collectionsMap = convertMarketLocationsSnapshotToMap(snapshot);
+        setLocations(collectionsMap);
       })
-    // console.log();
-  })
+  }, [])
 
   return (
     <Router>
       <Navbar />
+      {locations && <MapComponent coordinates={locations[0]} />}
       <Switch>
         <Route path='/' exact component={Home} />
         <Route path='/about' component={About} />
