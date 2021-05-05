@@ -3,11 +3,11 @@ import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
 const containerStyle = {
     width: '100vw',
-    height: '100vh'
+    height: '100vh',
 };
 
 const MapComponent = ({ coordinates }) => {
-    console.log(coordinates.position);
+    console.log(coordinates)
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: "AIzaSyAWb6OiPykdc2h1KNJZh4QvoM84FfQnJbg"
@@ -25,15 +25,19 @@ const MapComponent = ({ coordinates }) => {
         setMap(null)
     }, [])
 
-    return isLoaded ? (
+    return isLoaded && coordinates ? (
         <div className="Map">
             <GoogleMap
-                mapContainerStyle={containerStyle}
                 center={{
-                    lat: coordinates.position._lat,
-                    lng: coordinates.position._long
+                    // lat: coordinates.position._lat,
+                    // lng: coordinates.position._long
+                    // New York Coordinates
+                    lat: 40.730610,
+                    lng: -73.935242
                 }}
-                zoom={10}
+                zoom={11.5}
+                // options={{ mapId: '5bbe9e13b423fd8d'}}
+                mapContainerStyle={containerStyle}
                 onLoad={onLoad}
                 onUnmount={onUnmount}
             >
