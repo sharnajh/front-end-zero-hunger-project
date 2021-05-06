@@ -24,11 +24,10 @@ const App = () => {
         setLocations(collectionsMap);
       })
   }, [])
-
   return (
     <Router>
       <Navbar />
-      {locations && <MapComponent coordinates={locations[0]} />}
+      {locations ? <MapComponent coordinates={locations[0]} /> : "LOADING MAP..." }
       <Switch>
         <Route path='/' exact component={Home} />
         <Route path='/about' component={About} />
